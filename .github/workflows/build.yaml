@@ -25,4 +25,5 @@ jobs:
 
     - name: Run setup-buildroot inside Docker
       run: |
+        git config --global --add safe.directory /workspace
         docker run --rm -v $(pwd):/workspace -w /workspace builder make setup-buildroot
