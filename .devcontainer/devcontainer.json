@@ -1,0 +1,8 @@
+{
+    "name": "Custom Dev Container",
+    "dockerFile": "../Dockerfile",
+    "containerEnv": {
+        "WORKSPACE_DIR": "${containerWorkspaceFolder}",
+        "PROMPT_COMMAND": "history -a"
+    },
+}
