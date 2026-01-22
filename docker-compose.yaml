@@ -1,0 +1,13 @@
+services:
+  build-image:
+    image: builder
+    command: bash -c "echo build-image completed."
+    build: .
+  build:
+    image: builder
+    command: bash -c "make setup-buildroot"
+    depends_on:
+      - build-image
+    volumes:
+      - ./:/app
+    working_dir: /app
