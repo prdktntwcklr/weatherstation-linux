@@ -1,7 +1,8 @@
 [submodule "buildroot"]
 	path = buildroot
-	url = git://git.buildroot.net/buildroot
+	url = https://git.buildroot.net/buildroot
 	branch = 2023.08.x
+	ignore = dirty
 [submodule "buildroot-external/board/weatherstation/rootfs_overlay/srv/www/web-app"]
 	path = buildroot-external/board/weatherstation/rootfs_overlay/srv/www/web-app
 	url = https://github.com/prdktntwcklr/weatherman.git

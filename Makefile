@@ -1,5 +1,5 @@
-.PHONY: buildroot
+.PHONY: submodules
 
-buildroot:
+submodules:
 	@git submodule init
 	@git submodule update
