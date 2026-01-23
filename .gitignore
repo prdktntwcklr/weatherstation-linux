@@ -1,4 +1,1 @@
-linux/
-python/
-build.log
-notes.txt
+*.log

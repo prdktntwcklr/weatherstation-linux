@@ -1,4 +1,0 @@
-{
-    "name": "Custom Dev Container",
-    "dockerFile": "../Dockerfile",
-}

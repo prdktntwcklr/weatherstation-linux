@@ -4,7 +4,45 @@ ARG DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
-        ca-certificates \
+        # Mandatory Buildroot Pakackages
+        # See: https://buildroot.org/downloads/manual/manual.html#requirement-mandatory
+        build-essential \
+        bash \
+        bc \
+        binutils \
+        bzip2 \
+        cpio \
+        diffutils \
+        file \
+        g++ \
+        gcc \
         git \
+        gzip \
+        libncurses5-dev \
         make \
+        patch \
+        perl \
+        python3 \
+        rsync \
+        sed \
+        tar \
+        unzip \
+        wget \
+        # Other Packages
+        ca-certificates \
         nano
+
+# Create a non-root user and set up the environment
+RUN useradd -m appuser && \
+    mkdir -p /app
+
+# Copy files into image
+# TODO: We'd prefer mounting them, but this currently doesn't work due to
+# conflicting owners between the Windows host and the Linux Docker container
+COPY . /app
+
+RUN chown -R appuser:appuser /app
+
+USER appuser
+
+WORKDIR /app

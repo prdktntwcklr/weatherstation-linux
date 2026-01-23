@@ -1,0 +1,11 @@
+services:
+  build-image:
+    image: builder
+    command: bash -c "echo build-image completed."
+    build: .
+  build-app:
+    image: builder
+    command: bash -c "make build-app"
+    depends_on:
+      - build-image
+    working_dir: /app

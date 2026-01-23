@@ -25,34 +25,12 @@ respectively.
 
 ## Building the project
 
-First, make sure you have all mandatory packages for Buildroot readily installed
-on your system. See the [Buildroot user manual section](https://buildroot.org/downloads/manual/manual.html#requirement-mandatory)
-for details.
-
-Since this repository contains several submodules, it needs to be cloned using
-the `--recursive` flag:
+To build the project, simply use the provided `docker-compose.yaml` file by
+running:
 
 ```bash
-git clone --recursive https://github.com/prdktntwcklr/weatherstation-linux.git
+docker compose run --rm --build build-app
 ```
-
-When building for the first time, the `BR2_EXTERNAL` variable needs to be set
-to point to the out-of-tree directory:
-
-```bash
-cd weatherstation-linux/buildroot
-make BR2_EXTERNAL=../buildroot-external weatherstation_defconfig
-```
-
-This loads the default configuration for the project. To build the project, run:
-
-```bash
-make -j16 2>&1 | tee ../build.log
-```
-
-For ease of debugging, this will save build messages to a file called
-`build.log` in the top directory. The build products can be found under
-`buildroot/output/images`.
 
 ## Installing
 
