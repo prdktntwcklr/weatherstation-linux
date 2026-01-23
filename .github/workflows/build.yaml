@@ -4,9 +4,6 @@ on:
   push:
     branches:
       - main
-  pull_request:
-    branches:
-      - main
 
 # Ensure that the workflow is only triggered once per PR, subsequent pushes to
 # the PR will cancel and restart the workflow.
@@ -18,6 +15,7 @@ concurrency:
 jobs:
   setup-buildroot:
     runs-on: ubuntu-22.04
+    timeout-minutes: 90
 
     steps:
     - name: Checkout repository
