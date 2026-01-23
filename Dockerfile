@@ -31,3 +31,19 @@ RUN apt-get update && \
         # Other Packages
         ca-certificates \
         nano
+
+# Create a non-root user and set up the environment
+RUN useradd -m builderuser && \
+    mkdir -p /home/builderuser/app && \
+    chown -R builderuser:builderuser /home/builderuser
+
+# Copy files into image
+# TODO: We'd prefer mounting them, but this currently doesn't work due to
+# conflicting owners between the Windows host and the Linux Docker container
+COPY . /home/builderuser/app/
+
+RUN chown -R builderuser:builderuser /home/builderuser/app
+
+USER builderuser
+
+WORKDIR /home/builderuser/app
