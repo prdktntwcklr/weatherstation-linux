@@ -33,17 +33,16 @@ RUN apt-get update && \
         nano
 
 # Create a non-root user and set up the environment
-RUN useradd -m builderuser && \
-    mkdir -p /home/builderuser/app && \
-    chown -R builderuser:builderuser /home/builderuser
+RUN useradd -m appuser && \
+    mkdir -p /app
 
 # Copy files into image
 # TODO: We'd prefer mounting them, but this currently doesn't work due to
 # conflicting owners between the Windows host and the Linux Docker container
-COPY . /home/builderuser/app/
+COPY . /app
 
-RUN chown -R builderuser:builderuser /home/builderuser/app
+RUN chown -R appuser:appuser /app
 
-USER builderuser
+USER appuser
 
-WORKDIR /home/builderuser/app
+WORKDIR /app
