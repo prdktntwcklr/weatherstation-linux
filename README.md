@@ -48,6 +48,14 @@ docker compose run --rm --build build-app
 - Power on and connect via serial
 - Login: `root` / `root`
 
+## Development
+
+### Running the Devcontainer on Windows
+
+When using Windows, mounting folders directly into a Linux container can result
+in files being owned by root, which can cause permission errors. The recommended
+solution is to use WSL 2 as your filesystem.
+
 ## Project Structure
 
 See `buildroot-external/board/weatherstation/rootfs_overlay/` for overlays and
