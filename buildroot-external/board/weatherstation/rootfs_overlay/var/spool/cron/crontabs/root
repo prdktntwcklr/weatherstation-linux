@@ -1,1 +1,1 @@
-*/5 * * * * /bin/python /root/log-data.py
+*/5 * * * * /bin/python /root/log_data.py
