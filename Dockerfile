@@ -1,6 +1,9 @@
 FROM ubuntu:22.04
 
 ARG DEBIAN_FRONTEND=noninteractive
+ARG USERNAME=appuser
+ARG USER_UID=1000
+ARG USER_GID=1000
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
@@ -33,16 +36,10 @@ RUN apt-get update && \
         nano
 
 # Create a non-root user and set up the environment
-RUN useradd -m appuser && \
-    mkdir -p /app
+RUN groupadd --gid $USER_GID $USERNAME \
+    && useradd --uid $USER_UID --gid $USER_GID -m $USERNAME \
+    && mkdir -p /app \
+    && chown -R $USERNAME:$USERNAME /app
 
-# Copy files into image
-# TODO: We'd prefer mounting them, but this currently doesn't work due to
-# conflicting owners between the Windows host and the Linux Docker container
-COPY . /app
-
-RUN chown -R appuser:appuser /app
-
-USER appuser
-
+USER $USERNAME
 WORKDIR /app

@@ -1,6 +1,7 @@
 # Linux IoT Weatherstation
 
-Embedded Linux system for the [Raspberry Pi 3 Model B+](https://www.raspberrypi.com/products/raspberry-pi-3-model-b-plus/) using Buildroot ([https://buildroot.org/](https://buildroot.org/)). Continuously reads temperature & humidity from an SHT31 sensor, logs data to
+Embedded Linux system for the [Raspberry Pi 3 Model B+](https://www.raspberrypi.com/products/raspberry-pi-3-model-b-plus/) using Buildroot ([https://buildroot.org/](https://buildroot.org/)).
+Continuously reads temperature & humidity from an SHT31 sensor, logs data to
 SQLite, and serves a dashboard via a Python web app.
 
 For the individual projects providing sensor readings and dashboard
@@ -47,6 +48,14 @@ docker compose run --rm --build build-app
 - Insert into Raspberry Pi
 - Power on and connect via serial
 - Login: `root` / `root`
+
+## Development
+
+### Running the Devcontainer on Windows
+
+When using Windows, mounting folders directly into a Linux container can result
+in files being owned by root, which can cause permission errors. The recommended
+solution is to use WSL 2 as your filesystem.
 
 ## Project Structure
 
