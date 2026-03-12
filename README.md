@@ -1,7 +1,9 @@
 # Linux IoT Weatherstation
 
-Embedded Linux system for the [Raspberry Pi 3 Model B+](https://www.raspberrypi.com/products/raspberry-pi-3-model-b-plus/) using Buildroot ([https://buildroot.org/](https://buildroot.org/)). Continuously reads temperature & humidity from an SHT31 sensor, logs data to
-SQLite, and serves a dashboard via a Python web app.
+Embedded Linux system for the [Raspberry Pi 3 Model B+](https://www.raspberrypi.com/products/raspberry-pi-3-model-b-plus/)
+using Buildroot ([https://buildroot.org/](https://buildroot.org/)). Continuously
+reads temperature & humidity from an SHT31 sensor, logs data to SQLite, and
+serves a dashboard via a Python web app.
 
 For the individual projects providing sensor readings and dashboard
 functionality, see [prdktntwcklr/python-sht31](https://github.com/prdktntwcklr/python-sht31)
@@ -30,9 +32,16 @@ respectively.
 
 ### 1. Clone the repository
 
+**Important for Windows Users**: Do not clone this repository into a standard
+Windows folder (e.g., `C:\Users\...`). Docker performance on Windows-mounted
+drives is extremely slow, and Buildroot will likely fail due to
+case-insensitivity and line-ending issues.
+**Always clone and build inside the WSL2 internal filesystem.**
+
 ```bash
 git clone https://github.com/prdktntwcklr/weatherstation-linux.git
 cd weatherstation-linux
+git submodule update --init --recursive
 ```
 
 ### 2. Build with Docker Compose

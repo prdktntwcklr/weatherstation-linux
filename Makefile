@@ -5,9 +5,10 @@ BR_EXT = $(CURDIR)/buildroot-external
 SHELL := /bin/bash
 
 submodules:
-	@echo "Fetching Git submodules..."
-	@git submodule init
-	@git submodule update
+	@if [ ! -f "$(BR_DIR)/Makefile" ]; then \
+		echo "Error: Buildroot submodule not found. Run 'git submodule update --init --recursive' on your host."; \
+		exit 1; \
+	fi
 
 setup-buildroot: submodules
 	@echo "Configuring Buildroot with external tree..."
