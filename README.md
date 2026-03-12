@@ -52,8 +52,8 @@ docker compose run --rm --build build-app
 
 ### 3. Flash SD card
 
-- Copy build output to SD card
-- Insert into Raspberry Pi
+- Write `output/images/sdcard.img` build output to SD card
+- Insert SD card into Raspberry Pi
 - Power on and connect via serial
 - Login: `root` / `root`
 
@@ -61,16 +61,6 @@ docker compose run --rm --build build-app
 
 See `buildroot-external/board/weatherstation/rootfs_overlay/` for overlays and
 scripts.
-
-## Building & Installation
-
-Build with Docker Compose:
-
-```bash
-docker compose run --rm --build build-app
-```
-
-Copy build output to SD card, insert into Pi, power on, and login as `root`.
 
 ## Data Logging (Cron Job)
 
