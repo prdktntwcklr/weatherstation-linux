@@ -4,12 +4,10 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
 
-# Ensure that the workflow is only triggered once per PR, subsequent pushes to
-# the PR will cancel and restart the workflow.
-# See https://docs.github.com/en/actions/using-jobs/using-concurrency
 concurrency:
-  group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
+  group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
