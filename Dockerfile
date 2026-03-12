@@ -1,6 +1,9 @@
 FROM ubuntu:22.04
 
 ARG DEBIAN_FRONTEND=noninteractive
+ARG USER=appuser
+ARG USER_ID=1000
+ARG GROUP_ID=1000
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
@@ -30,19 +33,17 @@ RUN apt-get update && \
         wget \
         # Other Packages
         ca-certificates \
-        nano
+        locales \
+        nano && \
+    rm -rf /var/lib/apt/lists/*
 
-# Create a non-root user and set up the environment
-RUN useradd -m appuser && \
-    mkdir -p /app
+# Set the locale (Buildroot sometimes grumbles if UTF-8 isn't set)
+RUN locale-gen en_US.UTF-8
+ENV LANG=en_US.UTF-8
 
-# Copy files into image
-# TODO: We'd prefer mounting them, but this currently doesn't work due to
-# conflicting owners between the Windows host and the Linux Docker container
-COPY . /app
+# Dynamically create a user that matches host UID
+RUN groupadd -g ${GROUP_ID} ${USER} && \
+    useradd -u ${USER_ID} -g ${USER} -m ${USER}
 
-RUN chown -R appuser:appuser /app
-
-USER appuser
-
+USER ${USER}
 WORKDIR /app
