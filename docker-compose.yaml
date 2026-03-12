@@ -10,5 +10,5 @@ services:
       - build-image
     volumes:
       - .:/app
-    user: "${UID:-1000}:${GID:-1000}"
+    user: "${UID}:${GID}"
     working_dir: /app
