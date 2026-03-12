@@ -2,6 +2,8 @@
 
 BR_DIR = $(CURDIR)/buildroot
 BR_EXT = $(CURDIR)/buildroot-external
+BR_OUT = $(CURDIR)/output
+BR_LOG = $(BR_OUT)/build.log
 SHELL := /bin/bash
 
 submodules:
@@ -12,8 +14,9 @@ submodules:
 
 setup-buildroot: submodules
 	@echo "Configuring Buildroot with external tree..."
-	$(MAKE) -C $(BR_DIR) BR2_EXTERNAL=$(BR_EXT) weatherstation_defconfig
+	@mkdir -p $(BR_OUT)
+	$(MAKE) -C $(BR_DIR) BR2_EXTERNAL=$(BR_EXT) O=$(BR_OUT) weatherstation_defconfig
 
 build-app: setup-buildroot
-	@echo "Starting build. Logging to $(CURDIR)/build.log"
-	set -o pipefail; $(MAKE) -C $(BR_DIR) -j16 2>&1 | tee $(CURDIR)/build.log
+	@echo "Starting build. Logging to $(BR_LOG)"
+	set -o pipefail; $(MAKE) -C $(BR_DIR) O=$(BR_OUT) -j16 2>&1 | tee $(BR_LOG)
