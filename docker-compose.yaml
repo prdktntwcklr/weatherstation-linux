@@ -8,4 +8,7 @@ services:
     command: bash -c "make build-app"
     depends_on:
       - build-image
+    volumes:
+      - .:/app
+    user: appuser
     working_dir: /app
