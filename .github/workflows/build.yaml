@@ -21,5 +21,27 @@ jobs:
       with:
         submodules: recursive
 
+    - name: Install build dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y --no-install-recommends \
+          bc \
+          binutils \
+          build-essential \
+          bzip2 \
+          cpio \
+          diffutils \
+          file \
+          gzip \
+          libncurses5-dev \
+          patch \
+          perl \
+          python3 \
+          rsync \
+          sed \
+          tar \
+          unzip \
+          wget
+
     - name: Run Build
-      run: docker compose run --rm build-app
+      run: make build-app

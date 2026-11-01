@@ -16,7 +16,7 @@ respectively.
 - SQLite database storage
 - Web dashboard for data visualization
 - Cron job for periodic sampling
-- Docker-based build environment
+- Native Buildroot build
 - Fallback mode for development/testing (random values)
 
 ## Hardware Requirements
@@ -32,11 +32,9 @@ respectively.
 
 ### 1. Clone the repository
 
-**Important for Windows Users**: Do not clone this repository into a standard
-Windows folder (e.g., `C:\Users\...`). Docker performance on Windows-mounted
-drives is extremely slow, and Buildroot will likely fail due to
-case-insensitivity and line-ending issues.
-**Always clone and build inside the WSL2 internal filesystem.**
+**Windows users:** Build from the WSL2 internal filesystem rather than a
+Windows-mounted folder. Buildroot can be slow on Windows-mounted drives and
+requires case-sensitive filenames.
 
 ```bash
 git clone https://github.com/prdktntwcklr/weatherstation-linux.git
@@ -44,13 +42,24 @@ cd weatherstation-linux
 git submodule update --init --recursive
 ```
 
-### 2. Build with Docker Compose
+### 2. Install build dependencies
+
+On Ubuntu or Debian, install the Buildroot host dependencies:
 
 ```bash
-docker compose run --rm --build build-app
+sudo apt-get update
+sudo apt-get install -y \
+  bc binutils build-essential bzip2 cpio diffutils file gzip libncurses5-dev \
+  patch perl python3 rsync sed tar unzip wget
 ```
 
-### 3. Flash SD card
+### 3. Build
+
+```bash
+make build-app
+```
+
+### 4. Flash SD card
 
 - Write `output/images/sdcard.img` build output to SD card
 - Insert SD card into Raspberry Pi
@@ -89,5 +98,14 @@ via browser on the Pi's IP address.
 
 - Dummy values (`-99.99`) indicate sensor read failure.
 - Random values are used for development/testing.
-- Ensure Docker is installed and running.
+- Ensure the Buildroot host dependencies are installed.
+- If you previously built this checkout with Docker, clean the old host
+  binaries before the first native build. They may contain RPATH entries for
+  Docker's `/app` path:
+
+  ```bash
+  make -C buildroot O="$PWD/output" BR2_EXTERNAL="$PWD/buildroot-external" clean
+  make build-app
+  ```
+
 - Check logs in `/var/www/web-app/` for web app issues.
